@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { heart } from "lucide-react";
+import { Heart } from "lucide-react";
 
 interface HeaderProps {
   name: string;

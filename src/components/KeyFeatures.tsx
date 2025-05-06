@@ -1,5 +1,5 @@
 
-import { user, briefcase, heart, phone } from "lucide-react";
+import { User, Briefcase, Heart, Phone } from "lucide-react";
 
 interface Feature {
   title: string;
