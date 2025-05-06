@@ -1,6 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export interface ServiceItem {
   icon: string;
@@ -14,6 +15,10 @@ interface ServicesProps {
 }
 
 const Services = ({ title, services }: ServicesProps) => {
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'});
+  };
+
   return (
     <section id="services" className="py-16">
       <div className="container">
@@ -31,7 +36,11 @@ const Services = ({ title, services }: ServicesProps) => {
                 <p className="text-gray-600">{service.description}</p>
               </CardContent>
               <CardFooter>
-                <Button variant="link" className="text-blue-500 p-0">
+                <Button 
+                  variant="link" 
+                  className="text-blue-500 p-0"
+                  onClick={scrollToContact}
+                >
                   Learn more <span className="ml-1">→</span>
                 </Button>
               </CardFooter>

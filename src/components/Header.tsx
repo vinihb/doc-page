@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 
@@ -10,6 +10,38 @@ interface HeaderProps {
 
 const Header = ({ name, profession }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const nav = document.querySelector('nav');
+      const menuButton = document.querySelector('.menu-button');
+      
+      if (isMenuOpen && nav && !nav.contains(event.target as Node) && 
+          menuButton && !menuButton.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  // Close menu when ESC key is pressed
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [isMenuOpen]);
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b">
@@ -35,8 +67,12 @@ const Header = ({ name, profession }: HeaderProps) => {
         </Link>
         
         <button 
-          className="md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden menu-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(!isMenuOpen);
+          }}
+          aria-label="Toggle menu"
         >
           <div className="space-y-2">
             <span className="block w-8 h-0.5 bg-gray-600"></span>
@@ -47,11 +83,23 @@ const Header = ({ name, profession }: HeaderProps) => {
         
         <nav className={`absolute top-full left-0 w-full bg-white shadow-lg md:static md:shadow-none md:w-auto md:block ${isMenuOpen ? 'block' : 'hidden'}`}>
           <ul className="flex flex-col md:flex-row md:items-center md:gap-6 p-4 md:p-0">
-            <li><Link to="/" className="block py-2 hover:text-blue-500">Home</Link></li>
-            <li><Link to="#about" className="block py-2 hover:text-blue-500">About</Link></li>
-            <li><Link to="#services" className="block py-2 hover:text-blue-500">Services</Link></li>
-            <li><Link to="#testimonials" className="block py-2 hover:text-blue-500">Testimonials</Link></li>
-            <li><Link to="#contact" className="block py-2 hover:text-blue-500">Contact</Link></li>
+            <li><Link to="/" className="block py-2 hover:text-blue-500" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
+            <li><Link to="/#about" className="block py-2 hover:text-blue-500" onClick={() => {
+              setIsMenuOpen(false);
+              document.getElementById('about')?.scrollIntoView({behavior: 'smooth'});
+            }}>About</Link></li>
+            <li><Link to="/#services" className="block py-2 hover:text-blue-500" onClick={() => {
+              setIsMenuOpen(false);
+              document.getElementById('services')?.scrollIntoView({behavior: 'smooth'});
+            }}>Services</Link></li>
+            <li><Link to="/#testimonials" className="block py-2 hover:text-blue-500" onClick={() => {
+              setIsMenuOpen(false);
+              document.getElementById('testimonials')?.scrollIntoView({behavior: 'smooth'});
+            }}>Testimonials</Link></li>
+            <li><Link to="/#contact" className="block py-2 hover:text-blue-500" onClick={() => {
+              setIsMenuOpen(false);
+              document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'});
+            }}>Contact</Link></li>
           </ul>
         </nav>
       </div>
