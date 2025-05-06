@@ -24,7 +24,7 @@ const Services = ({ title, services }: ServicesProps) => {
           {services.map((service, index) => (
             <Card key={index} className="border shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
-                <div className="text-blue-500 text-3xl mb-4" dangerouslySetInnerHTML={{ __html: service.icon }} />
+                <div className="text-blue-500 text-xl mb-4" dangerouslySetInnerHTML={{ __html: service.icon }} />
                 <CardTitle className="text-2xl">{service.title}</CardTitle>
               </CardHeader>
               <CardContent>
