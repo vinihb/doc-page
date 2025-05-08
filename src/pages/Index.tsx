@@ -10,8 +10,8 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
+import { EditContentButton } from "@/components/EditContentButton";
 
 const Index = () => {
   const { config } = useConfig();
@@ -131,18 +131,6 @@ const Index = () => {
           office={config.contact.office}
           contactMethods={config.contact.contactMethods}
         />
-        
-        {/* Admin button - only visible in development */}
-        {process.env.NODE_ENV !== 'production' && (
-          <div className="fixed bottom-4 right-4 z-50">
-            <Button 
-              asChild 
-              className="bg-black hover:bg-gray-800"
-            >
-              <a href="/admin/config">Edit Content</a>
-            </Button>
-          </div>
-        )}
       </main>
       
       <Footer 
@@ -156,6 +144,11 @@ const Index = () => {
           email: config.contact.office.email,
         }}
       />
+      
+      {/* Admin button placed at the bottom */}
+      <div className="container mx-auto text-center py-4">
+        <EditContentButton />
+      </div>
       
       <ScrollToTop />
     </div>
