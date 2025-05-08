@@ -1,5 +1,5 @@
 
-import { defaultSiteConfig } from "@/config/siteConfig";
+import { useConfig } from "@/context/ConfigContext";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -10,9 +10,44 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 const Index = () => {
-  const config = defaultSiteConfig;
+  const { config } = useConfig();
+
+  // Apply dynamic colors based on configuration
+  useEffect(() => {
+    const root = document.documentElement;
+    
+    // Update CSS variables for colors
+    if (config.branding) {
+      const primaryColorHex = config.branding.primaryColor;
+      const secondaryColorHex = config.branding.secondaryColor;
+      const accentColorHex = config.branding.accentColor;
+      
+      document.querySelectorAll('.bg-blue-500').forEach(el => {
+        (el as HTMLElement).style.backgroundColor = primaryColorHex;
+      });
+      
+      document.querySelectorAll('.text-blue-500').forEach(el => {
+        (el as HTMLElement).style.color = primaryColorHex;
+      });
+      
+      document.querySelectorAll('.border-blue-500').forEach(el => {
+        (el as HTMLElement).style.borderColor = primaryColorHex;
+      });
+      
+      document.querySelectorAll('.hover\\:bg-blue-600').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          (el as HTMLElement).style.backgroundColor = secondaryColorHex;
+        });
+        el.addEventListener('mouseleave', () => {
+          (el as HTMLElement).style.backgroundColor = '';
+        });
+      });
+    }
+  }, [config.branding]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -96,6 +131,18 @@ const Index = () => {
           office={config.contact.office}
           contactMethods={config.contact.contactMethods}
         />
+        
+        {/* Admin button - only visible in development */}
+        {process.env.NODE_ENV !== 'production' && (
+          <div className="fixed bottom-4 right-4 z-50">
+            <Button 
+              asChild 
+              className="bg-black hover:bg-gray-800"
+            >
+              <a href="/admin/config">Edit Content</a>
+            </Button>
+          </div>
+        )}
       </main>
       
       <Footer 

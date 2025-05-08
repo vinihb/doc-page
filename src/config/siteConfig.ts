@@ -10,6 +10,12 @@ export type SiteConfig = {
     primaryCTA: string;
     secondaryCTA: string;
   };
+  branding: {
+    primaryColor: string;
+    secondaryColor: string;
+    accentColor: string;
+    logo?: string;
+  };
   features: Array<{
     title: string;
     description: string;
@@ -59,6 +65,11 @@ export type SiteConfig = {
       label: string;
       href: string;
     }>;
+    socialLinks?: Array<{
+      platform: string;
+      url: string;
+      icon: string;
+    }>;
   };
 };
 
@@ -73,6 +84,12 @@ export const defaultSiteConfig: SiteConfig = {
     teamImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000",
     primaryCTA: "Schedule Appointment",
     secondaryCTA: "Explore Services",
+  },
+  branding: {
+    primaryColor: "#3b82f6", // blue-500
+    secondaryColor: "#1e40af", // blue-800
+    accentColor: "#eff6ff", // blue-50
+    logo: "",
   },
   features: [
     {
@@ -213,5 +230,18 @@ export const defaultSiteConfig: SiteConfig = {
       { label: "Testimonials", href: "#testimonials" },
       { label: "Contact", href: "#contact" },
     ],
+    socialLinks: [
+      {
+        platform: "Twitter",
+        url: "https://twitter.com/drjohnsoncardio",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>'
+      },
+      {
+        platform: "LinkedIn",
+        url: "https://linkedin.com/in/drjohnsoncardio",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>'
+      }
+    ]
   },
 };
+
