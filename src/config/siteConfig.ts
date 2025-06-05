@@ -76,7 +76,7 @@ export type SiteConfig = {
 // Default site configuration
 export const defaultSiteConfig: SiteConfig = {
   professional: {
-    name: "Dr. Sarah Johnson",
+    name: "Dr. Viniiiii",
     profession: "Cardiology",
     tagline: "Providing expert cardiac care with compassion and advanced medical knowledge.",
     description: "Specialized cardiac care with a compassionate approach for your heart health needs.",
